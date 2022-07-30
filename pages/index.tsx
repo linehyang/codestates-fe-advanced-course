@@ -4,14 +4,14 @@ import axios from "axios";
 import Header from "../components/Header";
 import Posts from "../components/Posts";
 
-interface dataType {
+interface PostsType {
   userId: number;
   id: number;
   title: string;
   body: string;
 }
 
-const Home = ({ posts }: { posts: Array<dataType> }) => {
+const Home = ({ posts }: { posts: Array<PostsType> }) => {
   const PAGE_TITLE = "게시물 리스트";
 
   return (
@@ -28,8 +28,8 @@ const Home = ({ posts }: { posts: Array<dataType> }) => {
 };
 
 export async function getServerSideProps() {
-  const res = await axios("https://jsonplaceholder.typicode.com/posts");
-  const posts: Array<dataType> = res.data;
+  const postsres = await axios("https://jsonplaceholder.typicode.com/posts");
+  const posts: Array<PostsType> = postsres.data;
 
   return {
     props: { posts },

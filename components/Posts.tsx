@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { Fragment } from "react";
 
-interface dataType {
+interface PostsType {
   userId: number;
   id: number;
   title: string;
   body: string;
 }
 
-const Posts = ({ posts }: { posts: Array<dataType> }) => {
+const Posts = ({ posts }: { posts: Array<PostsType> }) => {
   return (
     <PostsContainer>
       <TableContainer>
