@@ -2,6 +2,7 @@ import Head from "next/head";
 import axios from "axios";
 
 import Header from "../components/Header";
+import Posts from "../components/Posts";
 
 interface dataType {
   userId: number;
@@ -20,15 +21,7 @@ const Home = ({ posts }: { posts: Array<dataType> }) => {
       </Head>
       <Header title={PAGE_TITLE} />
       <main>
-        {posts.map(({ id, title, userId }) => {
-          return (
-            <div key={id}>
-              <div>{id}</div>
-              <div>{title}</div>
-              <div>{userId}</div>
-            </div>
-          );
-        })}
+        <Posts posts={posts} />
       </main>
     </>
   );
