@@ -38,7 +38,10 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head />
+        <Head>
+          <meta name="description" content="CodeStates FE advanced" />
+          <link rel="icon" href="/codeStates_Logo.jpeg" />
+        </Head>
         <body>
           <Main />
           <NextScript />
