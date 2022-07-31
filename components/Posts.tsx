@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Link from "next/link";
 import { Fragment } from "react";
 
 interface PostsType {
@@ -24,11 +25,18 @@ const Posts = ({ posts }: { posts: Array<PostsType> }) => {
           {posts.map((post) => {
             return (
               <Fragment key={`${post.id},${post.title}`}>
-                <Post>
-                  <td>{post.id}</td>
-                  <td>{post.title}</td>
-                  <td>{post.userId}</td>
-                </Post>
+                <Link
+                  href={{
+                    pathname: "/detail",
+                    query: { posts: post.id },
+                  }}
+                >
+                  <Post>
+                    <td>{post.id}</td>
+                    <td>{post.title}</td>
+                    <td>{post.userId}</td>
+                  </Post>
+                </Link>
                 <TableMargin value={10} />
               </Fragment>
             );

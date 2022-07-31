@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { GetServerSideProps } from "next";
 import axios from "axios";
 
 import Header from "../components/Header";
@@ -27,13 +28,13 @@ const Home = ({ posts }: { posts: Array<PostsType> }) => {
   );
 };
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps = async () => {
   const postsres = await axios("https://jsonplaceholder.typicode.com/posts");
   const posts: Array<PostsType> = postsres.data;
 
   return {
     props: { posts },
   };
-}
+};
 
 export default Home;
