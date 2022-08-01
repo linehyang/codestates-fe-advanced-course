@@ -1,5 +1,7 @@
 import Head from "next/head";
 import { GetServerSideProps } from "next";
+import styled from "styled-components";
+import { useState } from "react";
 import axios from "axios";
 
 import Header from "../components/Header";
@@ -13,7 +15,15 @@ interface PostsType {
 }
 
 const Home = ({ posts }: { posts: Array<PostsType> }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+
   const PAGE_TITLE = "게시물 리스트";
+  const POST_LIMIT = 10;
+  const offset = (currentPage - 1) * POST_LIMIT;
+  const MAX_PAGE = Array.from(
+    { length: Math.ceil(posts.length / POST_LIMIT) },
+    (v, i) => i + 1
+  );
 
   return (
     <>
@@ -22,7 +32,31 @@ const Home = ({ posts }: { posts: Array<PostsType> }) => {
       </Head>
       <Header title={PAGE_TITLE} />
       <main>
-        <Posts posts={posts} />
+        <Posts posts={posts} offset={offset} postLimit={POST_LIMIT} />
+        <PageNationContainer>
+          <PageButton
+            onClick={() => setCurrentPage((prev) => prev - 1)}
+            disabled={currentPage === 1}
+          >
+            &lt;
+          </PageButton>
+          {MAX_PAGE.map((pageNumbr) => {
+            return (
+              <PageButton
+                key={`page : ${pageNumbr}`}
+                onClick={() => setCurrentPage(pageNumbr)}
+              >
+                {pageNumbr}
+              </PageButton>
+            );
+          })}
+          <PageButton
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+            disabled={currentPage === MAX_PAGE.length}
+          >
+            &gt;
+          </PageButton>
+        </PageNationContainer>
       </main>
     </>
   );
@@ -38,3 +72,15 @@ export const getServerSideProps: GetServerSideProps = async () => {
 };
 
 export default Home;
+
+const PageNationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 10px 100px;
+  padding-bottom: 10px;
+`;
+
+const PageButton = styled.button`
+  font-size: 15px;
+  border: 1px solid #c8c8c8;
+`;

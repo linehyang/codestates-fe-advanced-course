@@ -9,7 +9,6 @@ interface CommentsType {
 }
 
 const CommentDetail = ({ comments }: { comments: Array<CommentsType> }) => {
-  console.log(comments);
   return (
     <CommentDetailContainer>
       <h2>댓글 {comments.length}개</h2>

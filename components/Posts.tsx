@@ -9,7 +9,15 @@ interface PostsType {
   body: string;
 }
 
-const Posts = ({ posts }: { posts: Array<PostsType> }) => {
+const Posts = ({
+  posts,
+  offset,
+  postLimit,
+}: {
+  posts: Array<PostsType>;
+  offset: number;
+  postLimit: number;
+}) => {
   return (
     <PostsContainer>
       <TableContainer>
@@ -22,25 +30,27 @@ const Posts = ({ posts }: { posts: Array<PostsType> }) => {
         </Thead>
         <tbody>
           <TableMargin value={30} />
-          {posts.map((post) => {
-            return (
-              <Fragment key={`${post.id},${post.title}`}>
-                <Link
-                  href={{
-                    pathname: "/detail",
-                    query: { posts: post.id },
-                  }}
-                >
-                  <Post>
-                    <td>{post.id}</td>
-                    <td>{post.title}</td>
-                    <td>{post.userId}</td>
-                  </Post>
-                </Link>
-                <TableMargin value={10} />
-              </Fragment>
-            );
-          })}
+          {posts
+            .slice(offset, offset + postLimit)
+            .map(({ id, title, userId }) => {
+              return (
+                <Fragment key={`${id},${title}`}>
+                  <Link
+                    href={{
+                      pathname: "/detail",
+                      query: { posts: id },
+                    }}
+                  >
+                    <Post>
+                      <td>{id}</td>
+                      <td>{title}</td>
+                      <td>{userId}</td>
+                    </Post>
+                  </Link>
+                  <TableMargin value={10} />
+                </Fragment>
+              );
+            })}
         </tbody>
       </TableContainer>
     </PostsContainer>
