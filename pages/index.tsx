@@ -25,6 +25,10 @@ const Home = ({ posts }: { posts: Array<PostsType> }) => {
     (v, i) => i + 1
   );
 
+  const moveToTop = () => {
+    document.documentElement.scrollTop = 0;
+  };
+
   return (
     <>
       <Head>
@@ -35,7 +39,10 @@ const Home = ({ posts }: { posts: Array<PostsType> }) => {
         <Posts posts={posts} offset={offset} postLimit={POST_LIMIT} />
         <PageNationContainer>
           <PageButton
-            onClick={() => setCurrentPage((prev) => prev - 1)}
+            onClick={() => {
+              setCurrentPage((prev) => prev - 1);
+              moveToTop();
+            }}
             disabled={currentPage === 1}
             idx={0}
           >
@@ -45,7 +52,10 @@ const Home = ({ posts }: { posts: Array<PostsType> }) => {
             return (
               <PageButton
                 key={`page : ${pageNumbr}`}
-                onClick={() => setCurrentPage(pageNumbr)}
+                onClick={() => {
+                  setCurrentPage(pageNumbr);
+                  moveToTop();
+                }}
                 currentPage={currentPage}
                 idx={idx + 1}
               >
@@ -54,7 +64,10 @@ const Home = ({ posts }: { posts: Array<PostsType> }) => {
             );
           })}
           <PageButton
-            onClick={() => setCurrentPage((prev) => prev + 1)}
+            onClick={() => {
+              setCurrentPage((prev) => prev + 1);
+              moveToTop();
+            }}
             disabled={currentPage === MAX_PAGE.length}
             idx={0}
           >
