@@ -54,6 +54,7 @@ const PostTitle = styled.div`
 
   > div:last-child {
     text-align: end;
+    padding-right: 5px;
   }
 `;
 
