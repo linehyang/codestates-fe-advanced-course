@@ -37,14 +37,17 @@ const Home = ({ posts }: { posts: Array<PostsType> }) => {
           <PageButton
             onClick={() => setCurrentPage((prev) => prev - 1)}
             disabled={currentPage === 1}
+            idx={0}
           >
             &lt;
           </PageButton>
-          {MAX_PAGE.map((pageNumbr) => {
+          {MAX_PAGE.map((pageNumbr, idx) => {
             return (
               <PageButton
                 key={`page : ${pageNumbr}`}
                 onClick={() => setCurrentPage(pageNumbr)}
+                currentPage={currentPage}
+                idx={idx + 1}
               >
                 {pageNumbr}
               </PageButton>
@@ -53,6 +56,7 @@ const Home = ({ posts }: { posts: Array<PostsType> }) => {
           <PageButton
             onClick={() => setCurrentPage((prev) => prev + 1)}
             disabled={currentPage === MAX_PAGE.length}
+            idx={0}
           >
             &gt;
           </PageButton>
@@ -80,7 +84,12 @@ const PageNationContainer = styled.div`
   padding-bottom: 10px;
 `;
 
-const PageButton = styled.button`
-  font-size: 15px;
+const PageButton = styled.button<{ currentPage?: number; idx?: number }>`
+  width: 50px;
+  height: 50px;
   border: 1px solid #c8c8c8;
+  margin-top: 10px;
+  font-size: 15px;
+  background-color: ${(props) =>
+    props.currentPage === props.idx ? "#6876BC" : "#D9D9D9"};
 `;
