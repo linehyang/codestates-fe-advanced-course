@@ -23,4 +23,9 @@ export const GlobalStyle = createGlobalStyle`
   ul, ol {
     list-style: none;
   }
+
+  button {
+    border : none;
+    background: #fff;
+  }
 `;
